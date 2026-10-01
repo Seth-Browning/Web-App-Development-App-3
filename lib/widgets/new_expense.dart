@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 
 class NewExpense extends StatefulWidget {
   const NewExpense({super.key});
-
 
   @override
   State<NewExpense> createState() {
@@ -13,9 +11,19 @@ class NewExpense extends StatefulWidget {
 }
 
 class _NewExpenseState extends State<NewExpense> {
-
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
+
+  void _presentDatePicker() {
+    final now = DateTime.now();
+    final firstDate = DateTime(now.year - 1, now.month, now.day);
+    showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: firstDate,
+      lastDate: now,
+    );
+  }
 
   @override
   void dispose() {
@@ -34,30 +42,53 @@ class _NewExpenseState extends State<NewExpense> {
             controller: _titleController,
             maxLength: 50,
             keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              label: Text('Title')
-            ),
+            decoration: InputDecoration(label: Text('Title')),
           ),
-          TextField(
-            controller: _amountController,
-            decoration: InputDecoration(
-              prefixText: '\$ ',
-              label: Text('Amount')
-            ),
-            keyboardType: TextInputType.number,
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _amountController,
+                  decoration: InputDecoration(
+                    prefixText: '\$ ',
+                    label: Text('Amount'),
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('Selected Date'),
+                    IconButton(
+                      icon: const Icon(Icons.calendar_month),
+                      onPressed: _presentDatePicker,
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          Row(children: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Cancel')
-            ),
-            ElevatedButton(onPressed: () {
-              print(_titleController.text);
-              print(_amountController.text);
-            }, child: Text('Save Expense')),
-          ])
+          Row(
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Cancel'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  print(_titleController.text);
+                  print(_amountController.text);
+                },
+                child: Text('Save Expense'),
+              ),
+            ],
+          ),
         ],
       ),
     );
