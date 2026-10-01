@@ -12,7 +12,6 @@ class Expenses extends StatefulWidget {
 class _ExpensesState extends State<Expenses> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: Column(children: [Text('Charts'), Text('Expense list...')]),
     );
