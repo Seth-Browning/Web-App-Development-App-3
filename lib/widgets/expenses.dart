@@ -59,19 +59,21 @@ class _ExpensesState extends State<Expenses> {
         persist: false,
         duration: Duration(seconds: 3),
         action: SnackBarAction(
-          label: 'Undo', 
+          label: 'Undo',
           onPressed: () {
             setState(() {
               _registeredExpenses.insert(expenseIndex, expense);
             });
-          })
-
+          },
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     Widget mainContent = Center(
       child: Text('No expenses found. Start sdding some!'),
     );
@@ -93,14 +95,19 @@ class _ExpensesState extends State<Expenses> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Chart(
-            expenses: _registeredExpenses
-          ),
-          Expanded(child: mainContent),
-        ],
-      ),
+      body: width < 600
+          ? Column(
+              children: [
+                Chart(expenses: _registeredExpenses),
+                Expanded(child: mainContent),
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(child: Chart(expenses: _registeredExpenses)),
+                Expanded(child: mainContent),
+              ],
+            ),
     );
   }
 }
