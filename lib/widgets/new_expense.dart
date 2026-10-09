@@ -52,7 +52,7 @@ class _NewExpenseState extends State<NewExpense> {
     if (_titleController.text.trim().isEmpty ||
         amountIsInvalid ||
         _selectedDate == null) {
-      // show error message
+      
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
