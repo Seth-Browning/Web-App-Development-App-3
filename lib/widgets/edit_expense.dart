@@ -33,6 +33,10 @@ class _EditExpenseState extends State<EditExpense> {
 
     _selectedDate = widget.editingExpense.date;
     _selectedCategory = widget.editingExpense.category;
+
+    _titleController.value = TextEditingValue(text: widget.editingExpense.title);
+    _amountController.value = TextEditingValue(text: widget.editingExpense.amount.toString());
+    
   }
 
   void _presentDatePicker() async {
