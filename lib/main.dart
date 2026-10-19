@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 
 import 'package:expense_tracker/widgets/expenses.dart';
 
@@ -56,6 +57,9 @@ void main() {
               fontSize: 14,
             )
           ),
+        ),
+        scrollBehavior: const MaterialScrollBehavior().copyWith(
+          dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse,}
         ),
         themeMode: ThemeMode.system,
         home: Expenses()
