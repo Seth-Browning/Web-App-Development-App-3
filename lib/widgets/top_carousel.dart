@@ -109,7 +109,7 @@ class TopCarousel extends StatelessWidget {
                         Text(
                           '\$$thisMonthAmount',
                           style: TextStyle(
-                            fontSize: thisMonthAmount.length >= 7 ? 60 : 84,
+                            fontSize: 60,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
