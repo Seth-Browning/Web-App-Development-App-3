@@ -17,10 +17,10 @@ const categoryIcons = {
 
 class Expense {
   final String id;
-  final String title;
-  final double amount;
-  final DateTime date;
-  final Category category;
+  String title;
+  double amount;
+  DateTime date;
+  Category category;
 
   Expense({
     required this.title,

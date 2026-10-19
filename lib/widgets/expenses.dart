@@ -1,3 +1,4 @@
+import 'package:expense_tracker/widgets/edit_expense.dart';
 import 'package:expense_tracker/widgets/expenses_list/expenses_list.dart';
 import 'package:expense_tracker/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,24 @@ class _ExpensesState extends State<Expenses> {
     });
   }
 
+  void _openEditExpenseOverlay(Expense expenseToEdit) {
+    showModalBottomSheet(
+      useSafeArea: true,
+      isScrollControlled: true,
+      context: context,
+      builder: (ctx) => EditExpense(editingExpense: expenseToEdit, onEditExpense: _editExpense)
+    );
+  }
+
+  void _editExpense(Expense editExpense, Expense newExpenseValues) {
+    setState(() {
+      editExpense.date = newExpenseValues.date;
+      editExpense.amount = newExpenseValues.amount;
+      editExpense.category = newExpenseValues.category;
+      editExpense.title = newExpenseValues.title;
+    });
+  }
+
   void _removeExpense(Expense expense) {
     final expenseIndex = _registeredExpenses.indexOf(expense);
 
@@ -83,6 +102,8 @@ class _ExpensesState extends State<Expenses> {
       mainContent = ExpensesList(
         expenses: _registeredExpenses,
         onRemoveExpense: _removeExpense,
+        onEditExpense: _editExpense,
+        openEditOverlay: _openEditExpenseOverlay,
       );
     }
 

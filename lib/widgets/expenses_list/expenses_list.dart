@@ -7,9 +7,13 @@ class ExpensesList extends StatelessWidget {
     super.key,
     required this.expenses,
     required this.onRemoveExpense,
+    required this.onEditExpense,
+    required this.openEditOverlay,
   });
 
   final void Function(Expense expense) onRemoveExpense;
+  final void Function(Expense editedExpense, Expense newExpenseValuse) onEditExpense;
+  final void Function(Expense editedExpense) openEditOverlay;
 
   final List<Expense> expenses;
 
@@ -26,7 +30,7 @@ class ExpensesList extends StatelessWidget {
         ),
         onDismissed: (direction) => {onRemoveExpense(expenses[index])},
         key: ValueKey(expenses[index]),
-        child: ExpenseItem(expenses[index]),
+        child: ExpenseItem(expenses[index], onEditExpense: onEditExpense, editExpenseOverlay: openEditOverlay,),
       ),
     );
   }
